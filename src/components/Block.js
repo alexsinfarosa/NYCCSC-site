@@ -46,7 +46,6 @@ const RadioGroup = Radio.Group;
 export default class Block extends Component {
   render() {
     const { toggleModal, bStore } = this.props.app;
-
     const {
       chart,
       geom,

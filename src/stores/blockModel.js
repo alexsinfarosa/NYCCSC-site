@@ -314,19 +314,26 @@ export default class BlockModel {
   @action
   setStationCSV = () => {
     let dataSource = [];
+
     this.geom === "stn"
       ? (dataSource = this.stnData)
       : (dataSource = this.grdData);
 
     dataSource.forEach(d => {
-      // console.log(d);
-      this.stationCSV.push({
+      let p = {
         Year: d.year,
-        [this.elementLabel]: d.observed,
-        Range: `${d.startYear}-${d.year}`,
-        [`${d.yearsCount}-years Mean`]: d.observedMean,
+        [`Observed - ${this.elementLabel}`]:
+          d.observed !== null ? d.observed.toFixed(1) : "",
+        [`Observed ${d.yearsCount} years - Mean`]:
+          d.observedMean !== null ? d.observedMean : "",
+        "Model - Min": d.min !== null ? d.min.toFixed(1) : "",
+        "Model - Mean": d.mean !== null ? d.mean.toFixed(1) : "",
+        "Model - Max": d.max !== null ? d.max.toFixed(1) : "",
+
         RCP: this.rpc
-      });
+      };
+      // console.log(p);
+      this.stationCSV.push(p);
     });
   };
 }
